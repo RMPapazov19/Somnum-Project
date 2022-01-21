@@ -26,9 +26,9 @@ OBJ=$(patsubst %, $(ODIR)/%, $(_OBJ))
 
 # Libraries
 ifeq ($(OS),Windows_NT)
-	LIBS=
+	LIBS=-lncurses
 else
-	LIBS=
+	LIBS=-lncurses
 endif
 
 # Compile .cpp files to .o files
