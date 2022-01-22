@@ -1,6 +1,8 @@
-#include <iostream>
+#ifdef _WIN32
+#include <curses.h>
+#else
 #include <ncurses.h>
-using namespace std;
+#endif
 
 int main()
 {

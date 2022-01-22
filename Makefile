@@ -7,7 +7,7 @@ CXX=g++
 
 # Check if make is being ran on Windows or Unix
 ifeq ($(OS),Windows_NT)
-	CXXFLAGS=-I$(IDIR) -Llib/
+	CXXFLAGS=-I$(IDIR) -I$(IDIR)/PDcurses -Llib/
 	OUT_EXT=exe
 else
 	CXXFLAGS=-I$(IDIR)
@@ -26,7 +26,7 @@ OBJ=$(patsubst %, $(ODIR)/%, $(_OBJ))
 
 # Libraries
 ifeq ($(OS),Windows_NT)
-	LIBS=-lncurses
+	LIBS=-l:pdcurses.a
 else
 	LIBS=-lncurses
 endif
