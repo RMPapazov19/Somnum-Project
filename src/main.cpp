@@ -2,15 +2,18 @@
 #include <curses.h>
 #else
 #include <ncurses.h>
+#include <panel.h>
 #endif
 
+#include "tui.h"
 int main()
 {
-    initscr();
-
-    mvprintw(5, 10, "Hello ncurses");
-
-    refresh();
-    getch();
-    endwin();
+    WINDOW *windows[3];
+    PANEL *panels[3];
+	initscr();
+	cbreak();
+	noecho();
+    initTUI(windows, panels);
+    TUI(windows);
+	endwin();
 }

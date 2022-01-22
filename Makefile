@@ -14,21 +14,21 @@ else
 	OUT_EXT=out
 endif
 
-ERRFLAGS=-O3 -Wall -Wextra -Werror -g
+ERRFLAGS=-O3 -Wall -Wextra -g
 
 # Put header files here
-_DEPS=
+_DEPS=tui.h
 DEPS=$(patsubst %, $(IDIR)/%, $(_DEPS))
 
 # Put cpp files but change extension to .o
-_OBJ=main.o
+_OBJ=main.o tui.o
 OBJ=$(patsubst %, $(ODIR)/%, $(_OBJ))
 
 # Libraries
 ifeq ($(OS),Windows_NT)
 	LIBS=-l:pdcurses.a
 else
-	LIBS=-lncurses
+	LIBS=-lncurses -lpanel
 endif
 
 # Compile .cpp files to .o files
