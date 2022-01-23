@@ -1,5 +1,6 @@
 #ifdef _WIN32
 #include <curses.h>
+#include <panel.h>
 #else
 #include <ncurses.h>
 #include <panel.h>
