@@ -10,7 +10,7 @@ ifeq ($(OS),Windows_NT)
 	CXXFLAGS=-I$(IDIR) -I$(IDIR)/PDcurses -Llib/
 	OUT_EXT=exe
 else
-	CXXFLAGS=-I$(IDIR)
+	CXXFLAGS=-I$(IDIR) 
 	OUT_EXT=out
 endif
 
