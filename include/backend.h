@@ -7,6 +7,8 @@
 #endif
 
 #include <string>
+#include <fstream>
+#include <iostream>
 
 struct EventNode
 {
@@ -17,3 +19,5 @@ struct EventNode
 };
 
 void initEventList(EventNode *ev, YAML::Node data);
+
+YAML::Node parseData();

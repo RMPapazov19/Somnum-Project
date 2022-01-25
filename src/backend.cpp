@@ -14,3 +14,14 @@ void initEventList(EventNode *ev,YAML::Node data)
         ev = ev->next;
     } 
 }
+
+YAML::Node parseData()
+{
+    try{
+        return YAML::LoadFile("data.yaml");
+    }
+    catch(...){
+        std::ofstream dat("data.yaml");
+        return YAML::LoadFile("data.yaml");
+    }
+}

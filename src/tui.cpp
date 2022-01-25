@@ -52,7 +52,7 @@ void initTUI(WINDOW *windows[3], PANEL *panels[3])
 
 void TUI(WINDOW *windows[3])
 {
-    YAML::Node data = YAML::LoadFile("data.yaml");
+    YAML::Node data = parseData();
     EventNode *head = new EventNode;
     while (true)
     {
