@@ -1,12 +1,14 @@
 #pragma once
 
 #ifdef _WIN32
-#include <curses.h>
-#include <panel.h>
+#include <PDcurses/curses.h>
+#include <PDcurses/panel.h>
 #else
 #include <ncurses.h>
 #include <panel.h>
 #endif
+
+#include "backend.h"
 
 void updatePanels();
 bool handleInput();

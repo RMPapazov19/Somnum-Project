@@ -17,16 +17,16 @@ endif
 ERRFLAGS=-O3 -Wall -Wextra -g
 
 # Put header files here
-_DEPS=tui.h
+_DEPS=tui.h backend.h
 DEPS=$(patsubst %, $(IDIR)/%, $(_DEPS))
 
 # Put cpp files but change extension to .o
-_OBJ=main.o tui.o
+_OBJ=main.o tui.o backend.o
 OBJ=$(patsubst %, $(ODIR)/%, $(_OBJ))
 
 # Libraries
 ifeq ($(OS),Windows_NT)
-	LIBS=-l:pdcurses.a
+	LIBS=-l:pdcurses.a -l:yaml-cpp.dll.a
 else
 	LIBS=-lncurses -lpanel
 endif
