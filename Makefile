@@ -28,7 +28,7 @@ OBJ=$(patsubst %, $(ODIR)/%, $(_OBJ))
 ifeq ($(OS),Windows_NT)
 	LIBS=-l:pdcurses.a -l:yaml-cpp.dll.a
 else
-	LIBS=-lncurses -lpanel
+	LIBS=-lncurses -lpanel -lyaml-cpp
 endif
 
 # Compile .cpp files to .o files

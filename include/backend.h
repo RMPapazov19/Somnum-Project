@@ -3,7 +3,7 @@
 #ifdef _WIN32
 #include <yaml-cpp/yaml.h>
 #else
-#include <yaml.h>
+#include <yaml-cpp/yaml.h>
 #endif
 
 #include <string>
