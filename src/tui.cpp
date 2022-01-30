@@ -13,6 +13,18 @@ bool handleInput()
     case 'q':
     return true;
         break;
+    case 'w':
+     wprintw(windows[0], "Up key has been pressed");
+    break;
+    case 's':
+     wprintw(windows[0], "Down key has been pressed");
+    break;
+    case 'a':
+     wprintw(windows[0], "Insert key has been pressed");
+    break;
+    case 'd':
+     wprintw(windows[0], "Delete key has been pressed");
+    break;
     }
     return false;
 }
