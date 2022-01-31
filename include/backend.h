@@ -1,23 +1,21 @@
 #pragma once
 
-#ifdef _WIN32
 #include <yaml-cpp/yaml.h>
-#else
-#include <yaml-cpp/yaml.h>
-#endif
-
 #include <string>
 #include <fstream>
 #include <iostream>
+#include "tui.h"
 
 struct EventNode
 {
     int day, month, year;
     std::string name;
     std::string desc;
-    struct EventNode *next = nullptr;
+    struct EventNode *next = NULL;
 };
 
 void initEventList(EventNode *ev, YAML::Node data);
 
 YAML::Node parseData();
+
+void appendNode(EventNode *ev);

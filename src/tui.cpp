@@ -6,12 +6,12 @@ void updatePanels()
     doupdate();
 }
 
-bool handleInput(WINDOW *windows[3])
+void handleInput(WINDOW *windows[3], EventNode *ev)
 {
     switch (getch())
     {
     case 'q':
-        return true;
+        exit(0);
         break;
     case 'w':
         wprintw(windows[0], "Up key has been pressed");
@@ -20,13 +20,12 @@ bool handleInput(WINDOW *windows[3])
         wprintw(windows[0], "Down key has been pressed");
         break;
     case 'a':
-        wprintw(windows[0], "Insert key has been pressed");
+        appendNode(ev);
         break;
     case 'd':
         wprintw(windows[0], "Delete key has been pressed");
         break;
     }
-    return false;
 }
 
 void printEventList(WINDOW *displayWin, EventNode *ev)
@@ -42,9 +41,7 @@ void printEventList(WINDOW *displayWin, EventNode *ev)
 
 void initTUI(WINDOW *windows[3], PANEL *panels[3])
 {
-    cbreak();
     noecho();
-    curs_set(0);
 
     windows[0] = newwin(3, getmaxx(stdscr), 0, 0);
     windows[1] = newwin(getmaxy(stdscr) - 3, 30, 3, 0);
@@ -66,12 +63,9 @@ void TUI(WINDOW *windows[3])
     EventNode *head = new EventNode;
     while (true)
     {
-        updatePanels();
         initEventList(head, data);
         printEventList(windows[1], head);
-        if (handleInput(windows))
-        {
-            return;
-        }
+        updatePanels();
+        handleInput(windows, head);
     }
 }

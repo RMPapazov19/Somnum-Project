@@ -1,5 +1,7 @@
 #pragma once
 
+#include "backend.h"
+
 #ifdef _WIN32
 #include <PDcurses/curses.h>
 #include <PDcurses/panel.h>
@@ -8,10 +10,7 @@
 #include <panel.h>
 #endif
 
-#include "backend.h"
-
 void updatePanels();
-bool handleInput(WINDOW *window[3]);
 
 void initTUI(WINDOW *windows[3], PANEL *panels[3]);
 

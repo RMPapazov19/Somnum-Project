@@ -17,11 +17,11 @@ endif
 ERRFLAGS=-O3 -Wall -Wextra -g
 
 # Put header files here
-_DEPS=tui.h backend.h
+_DEPS=backend.h tui.h
 DEPS=$(patsubst %, $(IDIR)/%, $(_DEPS))
 
 # Put cpp files but change extension to .o
-_OBJ=main.o tui.o backend.o
+_OBJ=main.o backend.o tui.o
 OBJ=$(patsubst %, $(ODIR)/%, $(_OBJ))
 
 # Libraries
