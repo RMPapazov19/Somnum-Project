@@ -12,11 +12,27 @@ PANEL *createPopupWindow()
     PANEL *pan;
     int maxX, maxY;
     getmaxyx(stdscr, maxY, maxX);
-    win = newwin(maxY / 2, maxX / 2, maxY / 4, maxX / 4);
+    win = newwin(8, 28, maxY / 4 + 4, maxX / 4 + 14);
     pan = new_panel(win);
     box(win, 0, 0);
     hide_panel(pan);
     return pan;
+}
+
+void displayHelp()
+{
+    WINDOW *win = panel_window(panel_below(NULL));
+    mvwprintw(win, 1, 1, "| Keybind | Action       |");
+    mvwprintw(win, 2, 1, "--------------------------");
+    mvwprintw(win, 3, 1, "|    a    | Add event    |");
+    mvwprintw(win, 4, 1, "|    z    | Delete event |");
+    mvwprintw(win, 5, 1, "|    w    | Go up        |");
+    mvwprintw(win, 6, 1, "|    s    | Go down      |");
+    updatePanels();
+    getch();
+
+    wclear(win);
+    box(win, 0, 0);
 }
 
 void handleInput(WINDOW *windows[3], EventNode *ev, PANEL *popup)
@@ -39,11 +55,13 @@ void handleInput(WINDOW *windows[3], EventNode *ev, PANEL *popup)
         updateEventList(ev);
         hide_panel(popup);
         break;
-    case 'd':
+    case 'z':
         wprintw(windows[0], "Delete key has been pressed");
         break;
     case 'h':
-
+        show_panel(popup);
+        displayHelp();
+        hide_panel(popup);
         break;
     }
 }

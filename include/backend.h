@@ -14,6 +14,6 @@ struct EventNode
     struct EventNode *next = NULL;
 };
 
-void initEventList(EventNode *ev);
+void updateEventList(EventNode *ev);
 
 void appendNode();
