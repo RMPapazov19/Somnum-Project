@@ -32,6 +32,19 @@ void appendNode(EventNode *ev)
     mvwscanw(inputWin, 3, 7, "%i", &month);
     mvwscanw(inputWin, 4, 6, "%i", &year);
 
+    ev->next = new EventNode;
+    ev = ev->next;
+
+    ev->name = name;
+    ev->day = day;
+    ev->month = month;
+    ev->year = year;
+    ev->desc = "\" Edit me to add description \"";
+
+    std::fstream data;
+    data.open("data.csv", std::ios::app);
+    data << name << "," << day << "," << month << "," << year << ","
+         << "\" Edit me to add description\",\n";
     del_panel(inputPanel);
     delwin(inputWin);
     noecho();
