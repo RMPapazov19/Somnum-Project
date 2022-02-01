@@ -26,10 +26,12 @@ OBJ=$(patsubst %, $(ODIR)/%, $(_OBJ))
 
 # Libraries
 ifeq ($(OS),Windows_NT)
-	LIBS=-l:pdcurses.a -l:yaml-cpp.dll.a
+	LIBS=-l:pdcurses.a
 else
-	LIBS=-lncurses -lpanel -lyaml-cpp
+	LIBS=-lncurses -lpanel
 endif
+
+LIBS+=-lpthread
 
 # Compile .cpp files to .o files
 $(ODIR)/%.o: src/%.cpp $(DEPS)

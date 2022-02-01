@@ -63,11 +63,10 @@ void initTUI(WINDOW *windows[3], PANEL *panels[3])
 
 void TUI(WINDOW *windows[3])
 {
-    YAML::Node data = parseData();
     EventNode *head = new EventNode;
+    initEventList(head);
     while (true)
     {
-        initEventList(head, data);
         printEventList(windows[1], head);
         updatePanels();
         handleInput(windows, head);

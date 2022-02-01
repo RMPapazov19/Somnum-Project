@@ -1,6 +1,6 @@
 #pragma once
 
-#include <yaml-cpp/yaml.h>
+#include <csv.h>
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -14,8 +14,6 @@ struct EventNode
     struct EventNode *next = NULL;
 };
 
-void initEventList(EventNode *ev, YAML::Node data);
-
-YAML::Node parseData();
+void initEventList(EventNode *ev);
 
 void appendNode(EventNode *ev);
