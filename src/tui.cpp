@@ -20,11 +20,14 @@ void handleInput(WINDOW *windows[3], EventNode *ev)
         wprintw(windows[0], "Down key has been pressed");
         break;
     case 'a':
-        appendNode(ev);
+        appendNode();
         initEventList(ev);
         break;
     case 'd':
         wprintw(windows[0], "Delete key has been pressed");
+        break;
+    case 'h':
+
         break;
     }
 }

@@ -13,5 +13,4 @@
 void updatePanels();
 
 void initTUI(WINDOW *windows[3], PANEL *panels[3]);
-
 void TUI(WINDOW *windows[3]);

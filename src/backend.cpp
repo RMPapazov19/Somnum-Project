@@ -1,52 +1,42 @@
 #include "backend.h"
 
-EventNode *getTail(EventNode *ev)
+void getNewNode(WINDOW *win)
 {
-    while (ev->next != NULL)
-    {
-        ev = ev->next;
-    }
-    return ev;
-}
-
-void appendNode(EventNode *ev)
-{
-    echo();
-    int maxX, maxY;
-    getmaxyx(stdscr, maxY, maxX);
-    WINDOW *inputWin = newwin(maxY / 2, maxX / 2, maxY / 4, maxX / 4);
-    PANEL *inputPanel = new_panel(inputWin);
-    box(inputWin, 0, 0);
     char name[80];
     int day, month, year;
 
-    updatePanels();
+    mvwprintw(win, 1, 1, "Name:");
+    mvwprintw(win, 2, 1, "Day:");
+    mvwprintw(win, 3, 1, "Month:");
+    mvwprintw(win, 4, 1, "Year:");
 
-    mvwprintw(inputWin, 1, 1, "Name:");
-    mvwprintw(inputWin, 2, 1, "Day:");
-    mvwprintw(inputWin, 3, 1, "Month:");
-    mvwprintw(inputWin, 4, 1, "Year:");
-
-    mvwgetstr(inputWin, 1, 6, name);
-    mvwscanw(inputWin, 2, 5, "%i", &day);
-    mvwscanw(inputWin, 3, 7, "%i", &month);
-    mvwscanw(inputWin, 4, 6, "%i", &year);
-
-    ev->next = new EventNode;
-    ev = ev->next;
-
-    ev->name = name;
-    ev->day = day;
-    ev->month = month;
-    ev->year = year;
-    ev->desc = "\" Edit me to add description \"";
+    mvwgetstr(win, 1, 6, name);
+    mvwscanw(win, 2, 5, "%i", &day);
+    mvwscanw(win, 3, 7, "%i", &month);
+    mvwscanw(win, 4, 6, "%i", &year);
 
     std::fstream data;
     data.open("data.csv", std::ios::app);
     data << name << "," << day << "," << month << "," << year << ","
-         << "\" Edit me to add description\",\n";
-    del_panel(inputPanel);
-    delwin(inputWin);
+         << "\"Edit me to add description\",\n";
+}
+
+void appendNode()
+{
+    echo();
+    WINDOW *win;
+    PANEL *pan;
+    int maxX, maxY;
+    getmaxyx(stdscr, maxY, maxX);
+    win = newwin(maxY / 2, maxX / 2, maxY / 4, maxX / 4);
+    pan = new_panel(win);
+    box(win, 0, 0);
+    updatePanels();
+
+    getNewNode(win);
+
+    del_panel(pan);
+    delwin(win);
     noecho();
 }
 
