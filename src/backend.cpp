@@ -1,7 +1,10 @@
 #include "backend.h"
 
-void getNewNode(WINDOW *win)
+void appendNode()
 {
+    echo();
+
+    WINDOW *win = panel_window(panel_below(NULL));
     char name[80];
     int day, month, year;
 
@@ -15,32 +18,18 @@ void getNewNode(WINDOW *win)
     mvwscanw(win, 3, 7, "%i", &month);
     mvwscanw(win, 4, 6, "%i", &year);
 
+    wclear(win);
+    box(win, 0, 0);
+
     std::fstream data;
     data.open("data.csv", std::ios::app);
     data << name << "," << day << "," << month << "," << year << ","
          << "\"Edit me to add description\",\n";
-}
 
-void appendNode()
-{
-    echo();
-    WINDOW *win;
-    PANEL *pan;
-    int maxX, maxY;
-    getmaxyx(stdscr, maxY, maxX);
-    win = newwin(maxY / 2, maxX / 2, maxY / 4, maxX / 4);
-    pan = new_panel(win);
-    box(win, 0, 0);
-    updatePanels();
-
-    getNewNode(win);
-
-    del_panel(pan);
-    delwin(win);
     noecho();
 }
 
-void initEventList(EventNode *ev)
+void updateEventList(EventNode *ev)
 {
     std::fstream data;
     std::ifstream *fileTest = new std::ifstream;

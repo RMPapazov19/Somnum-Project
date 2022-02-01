@@ -6,7 +6,20 @@ void updatePanels()
     doupdate();
 }
 
-void handleInput(WINDOW *windows[3], EventNode *ev)
+PANEL *createPopupWindow()
+{
+    WINDOW *win;
+    PANEL *pan;
+    int maxX, maxY;
+    getmaxyx(stdscr, maxY, maxX);
+    win = newwin(maxY / 2, maxX / 2, maxY / 4, maxX / 4);
+    pan = new_panel(win);
+    box(win, 0, 0);
+    hide_panel(pan);
+    return pan;
+}
+
+void handleInput(WINDOW *windows[3], EventNode *ev, PANEL *popup)
 {
     switch (getch())
     {
@@ -20,8 +33,11 @@ void handleInput(WINDOW *windows[3], EventNode *ev)
         wprintw(windows[0], "Down key has been pressed");
         break;
     case 'a':
+        // TODO: Optimize appending of nodes
+        show_panel(popup);
         appendNode();
-        initEventList(ev);
+        updateEventList(ev);
+        hide_panel(popup);
         break;
     case 'd':
         wprintw(windows[0], "Delete key has been pressed");
@@ -68,11 +84,12 @@ void initTUI(WINDOW *windows[3], PANEL *panels[3])
 void TUI(WINDOW *windows[3])
 {
     EventNode *head = new EventNode;
-    initEventList(head);
+    PANEL *popup = createPopupWindow();
+    updateEventList(head);
     while (true)
     {
         printEventList(windows[1], head);
         updatePanels();
-        handleInput(windows, head);
+        handleInput(windows, head, popup);
     }
 }
