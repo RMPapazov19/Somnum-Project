@@ -63,7 +63,8 @@ void updateEventList(EventNode *ev)
     if (!(*fileTest))
     {
         data.open("data.csv", std::ios::in | std::ios::app);
-        data << "Name,Day,Month,Year,Desc";
+        data << "Name,Day,Month,Year,Desc,";
+        data << "\n";
         delete fileTest;
         data.close();
     }
