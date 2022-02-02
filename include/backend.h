@@ -17,3 +17,4 @@ struct EventNode
 void updateEventList(EventNode *ev);
 
 void appendNode();
+void deleteNodeAtIndex(const unsigned index);

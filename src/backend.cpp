@@ -6,7 +6,8 @@ void appendNode()
 
     WINDOW *win = panel_window(panel_below(NULL));
     char name[80];
-    int day, month, year;
+    unsigned day, month;
+    int year;
 
     mvwprintw(win, 1, 1, "Name:");
     mvwprintw(win, 2, 1, "Day (Number):");
@@ -15,11 +16,11 @@ void appendNode()
 
     mvwgetstr(win, 1, 6, name);
     box(win, 0, 0);
-    mvwscanw(win, 2, 5, "%i", &day);
+    mvwscanw(win, 2, 16, "%u", &day);
     box(win, 0, 0);
-    mvwscanw(win, 3, 7, "%i", &month);
+    mvwscanw(win, 3, 18, "%u", &month);
     box(win, 0, 0);
-    mvwscanw(win, 4, 6, "%i", &year);
+    mvwscanw(win, 4, 17, "%i", &year);
 
     wclear(win);
     box(win, 0, 0);
@@ -30,6 +31,28 @@ void appendNode()
          << "\"Edit me to add description\",\n";
 
     noecho();
+}
+
+void deleteNodeAtIndex(const unsigned index)
+{
+    unsigned counter = 0;
+    std::fstream data;
+    data.open("data.csv", std::ios::in);
+    std::string line;
+    std::string contents;
+    while (std::getline(data, line))
+    {
+        if (counter != index)
+        {
+            contents += line;
+            contents += "\n";
+        }
+        counter++;
+    }
+    data.close();
+    data.open("data.csv", std::ios::out | std::ios::trunc);
+    data << contents;
+    data.close();
 }
 
 void updateEventList(EventNode *ev)

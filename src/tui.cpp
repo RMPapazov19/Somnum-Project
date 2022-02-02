@@ -71,7 +71,7 @@ void displayHelp()
  * @param ev Event list
  * @param popup Popup window where all will be printed
  */
-void handleInput(short &highlight, EventNode *ev, PANEL *popup)
+void handleInput(short &highlight, EventNode *ev, PANEL *popup, WINDOW *win)
 {
     switch (getch())
     {
@@ -103,6 +103,11 @@ void handleInput(short &highlight, EventNode *ev, PANEL *popup)
 
     // Delete a selected event
     case 'z':
+        deleteNodeAtIndex(highlight);
+        wclear(win);
+        box(win, 0, 0);
+        mvwprintw(win, 0, 1, " Events ");
+        updateEventList(ev);
         break;
     case 'h':
         // Show popup panel, display help menu
@@ -222,6 +227,6 @@ void TUI(WINDOW *windows[3])
         updatePanels();
 
         // Wait for input
-        handleInput(highlight, head, popup);
+        handleInput(highlight, head, popup, windows[1]);
     }
 }
