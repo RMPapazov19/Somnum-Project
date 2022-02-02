@@ -35,7 +35,7 @@ void displayHelp()
     box(win, 0, 0);
 }
 
-void handleInput(WINDOW *windows[3], EventNode *ev, PANEL *popup)
+void handleInput(short &highlight, EventNode *ev, PANEL *popup)
 {
     switch (getch())
     {
@@ -43,20 +43,18 @@ void handleInput(WINDOW *windows[3], EventNode *ev, PANEL *popup)
         exit(0);
         break;
     case 'w':
-        wprintw(windows[0], "Up key has been pressed");
+        highlight--;
         break;
     case 's':
-        wprintw(windows[0], "Down key has been pressed");
+        highlight++;
         break;
     case 'a':
-        // TODO: Optimize appending of nodes
         show_panel(popup);
         appendNode();
         updateEventList(ev);
         hide_panel(popup);
         break;
     case 'z':
-        wprintw(windows[0], "Delete key has been pressed");
         break;
     case 'h':
         show_panel(popup);
@@ -64,14 +62,30 @@ void handleInput(WINDOW *windows[3], EventNode *ev, PANEL *popup)
         hide_panel(popup);
         break;
     }
+    if (highlight < 1)
+    {
+        highlight = 1;
+    }
 }
 
-void printEventList(WINDOW *displayWin, EventNode *ev)
+void printEventList(WINDOW *win[3], EventNode *ev, const short highlight)
 {
-    size_t i = 1;
+    short i = 1;
     while (ev->next != nullptr)
     {
-        mvwprintw(displayWin, i, 1, "%s - %i.%i.%i", ev->name.c_str(), ev->day, ev->month, ev->year);
+        if (highlight == i)
+        {
+            wattron(win[1], A_STANDOUT);
+            mvwprintw(win[1], i, 1, "%s - %i.%i.%i", ev->name.c_str(), ev->day, ev->month, ev->year);
+            wattroff(win[1], A_STANDOUT);
+            wclear(win[2]);
+            box(win[2], 0, 0);
+            mvwprintw(win[2], 1, 1, "%s", ev->desc.c_str());
+        }
+        else
+        {
+            mvwprintw(win[1], i, 1, "%s - %i.%i.%i", ev->name.c_str(), ev->day, ev->month, ev->year);
+        }
         i++;
         ev = ev->next;
     }
@@ -104,10 +118,11 @@ void TUI(WINDOW *windows[3])
     EventNode *head = new EventNode;
     PANEL *popup = createPopupWindow();
     updateEventList(head);
+    short highlight = 1;
     while (true)
     {
-        printEventList(windows[1], head);
+        printEventList(windows, head, highlight);
         updatePanels();
-        handleInput(windows, head, popup);
+        handleInput(highlight, head, popup);
     }
 }

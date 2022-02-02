@@ -14,8 +14,11 @@ void appendNode()
     mvwprintw(win, 4, 1, "Year:");
 
     mvwgetstr(win, 1, 6, name);
+    box(win, 0, 0);
     mvwscanw(win, 2, 5, "%i", &day);
+    box(win, 0, 0);
     mvwscanw(win, 3, 7, "%i", &month);
+    box(win, 0, 0);
     mvwscanw(win, 4, 6, "%i", &year);
 
     wclear(win);
