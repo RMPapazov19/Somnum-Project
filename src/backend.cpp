@@ -67,19 +67,16 @@ void deleteNodeAtIndex(const unsigned index)
     std::fstream data;
     data.open("data.csv", std::ios::in);
     
-    // Declare string that will store a line of the data file
     std::string line;
-
-    // Declare string that will store all data from file
-    std::string contents;
+    std::string fileContents;
     
     // Get all data from file except line to be deleted
     while (std::getline(data, line))
     {
         if (counter != index)
         {
-            contents += line;
-            contents += "\n";
+            fileContents += line;
+            fileContents += "\n";
         }
         counter++;
     }
@@ -90,7 +87,7 @@ void deleteNodeAtIndex(const unsigned index)
     // Open file in output and truncate mode to delete all contents
     // and put in new contents
     data.open("data.csv", std::ios::out | std::ios::trunc);
-    data << contents;
+    data << fileContents;
     data.close();
 }
 
