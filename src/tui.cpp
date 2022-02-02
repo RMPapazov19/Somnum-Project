@@ -48,6 +48,7 @@ void displayHelp()
     WINDOW *win = panel_window(panel_below(NULL));
 
     // Display help menu with all keybinds
+    mvwprintw(win, 0, 1, " Keybinds ");
     mvwprintw(win, 1, 1, "| Keybind | Action       |");
     mvwprintw(win, 2, 1, "--------------------------");
     mvwprintw(win, 3, 1, "|    a    | Add event    |");
@@ -77,6 +78,7 @@ void handleInput(short &highlight, EventNode *ev, PANEL *popup, WINDOW *win)
     {
     // Quit porgram
     case 'q':
+        echo();
         exit(0);
         break;
 
@@ -104,9 +106,13 @@ void handleInput(short &highlight, EventNode *ev, PANEL *popup, WINDOW *win)
     // Delete a selected event
     case 'z':
         deleteNodeAtIndex(highlight);
+        
+        // Clear events window
         wclear(win);
         box(win, 0, 0);
         mvwprintw(win, 0, 1, " Events ");
+
+        // Update event list
         updateEventList(ev);
         break;
     case 'h':

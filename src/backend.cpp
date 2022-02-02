@@ -30,10 +30,13 @@ void appendNode()
     // Get input for all options
     mvwgetstr(win, 1, 6, name);
     box(win, 0, 0);
+    mvwprintw(win, 0, 1, " Add event ");
     mvwscanw(win, 2, 16, "%u", &day);
     box(win, 0, 0);
+    mvwprintw(win, 0, 1, " Add event ");
     mvwscanw(win, 3, 18, "%u", &month);
     box(win, 0, 0);
+    mvwprintw(win, 0, 1, " Add event ");
     mvwscanw(win, 4, 17, "%i", &year);
 
     // Clear popup window
