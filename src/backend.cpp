@@ -9,9 +9,9 @@ void appendNode()
     int day, month, year;
 
     mvwprintw(win, 1, 1, "Name:");
-    mvwprintw(win, 2, 1, "Day:");
-    mvwprintw(win, 3, 1, "Month:");
-    mvwprintw(win, 4, 1, "Year:");
+    mvwprintw(win, 2, 1, "Day (Number):");
+    mvwprintw(win, 3, 1, "Month (Number):");
+    mvwprintw(win, 4, 1, "Year (Number):");
 
     mvwgetstr(win, 1, 6, name);
     box(win, 0, 0);

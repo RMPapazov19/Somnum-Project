@@ -145,6 +145,7 @@ void printEventList(WINDOW *wins[3], EventNode *ev, const short highlight)
             // Clear description windwow and print event selected event description
             wclear(wins[2]);
             box(wins[2], 0, 0);
+            mvwprintw(wins[2], 0, 1, " Description ");
             mvwprintw(wins[2], 1, 1, "%s", ev->desc.c_str());
         }
         else
