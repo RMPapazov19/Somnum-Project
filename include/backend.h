@@ -23,9 +23,10 @@ struct EventNode
 /**
  * @brief Function to update linked list of events
  * 
- * @param ev head node of linked list
+ * @param ev Head node of linked list
+ * @return int Number of elements in list
  */
-void updateEventList(EventNode *ev);
+int updateEventList(EventNode *ev);
 
 /**
  * @brief Add event data to end of data file

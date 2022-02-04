@@ -26,9 +26,11 @@ void appendNode()
     mvwprintw(win, 3, 1, "YYYY-MM-DD = ");
 
     // Get input for all options
+    wmove(win, 1, 6);
     mvwgetstr(win, 1, 6, name);
     box(win, 0, 0);
     mvwprintw(win, 0, 1, " Add event ");
+    wmove(win, 3, 14);
     mvwgetstr(win, 3, 14, date);
 
     // Clear popup window
@@ -39,10 +41,10 @@ void appendNode()
     std::fstream data;
     std::string dateString(date);
     data.open("data.csv", std::ios::app);
-
     data << name << "," << dateString << ","
          << "\"Edit me to add description\""
          << ",\n";
+
     // Turn off printing user input to screen
     noecho();
 }
@@ -90,13 +92,16 @@ void deleteNodeAtIndex(const unsigned index)
  * 
  * @param ev head node of linked list
  */
-void updateEventList(EventNode *ev)
+int updateEventList(EventNode *ev)
 {
-    // Declare input stream and file stream
     std::fstream data;
     std::ifstream testFile;
+
     std::string dateString;
     std::stringstream dateSStream;
+
+    // Variable to store number of events
+    short count = 0;
 
     // Try to open data file
     testFile.open("data.csv");
@@ -125,15 +130,27 @@ void updateEventList(EventNode *ev)
     // Read from file until data is present
     while (in.read_row(ev->name, dateString, ev->desc))
     {
-        // When all data has been placed in current node
-        // Place data in next node
+        // Put dateString into dateSStream, parse the date and clear the stream
         dateSStream << dateString;
         dateSStream >> std::get_time(&ev->date, "%Y-%m-%d");
         dateSStream.clear();
+
+        // Clear any date values
+        ev->date = {};
+
+        // Since tm_year counts from 1900 add 1900 to get accurate year
         ev->date.tm_year += 1900;
+
+        // Add 1 to get accurate date
+        // If input was not correct it sets tm_mon and tm_mday to 1
         ev->date.tm_mon++;
         ev->date.tm_mday++;
+
+        // Declare a new node and change it
         ev->next = new EventNode;
         ev = ev->next;
+
+        count++;
     }
+    return count;
 }

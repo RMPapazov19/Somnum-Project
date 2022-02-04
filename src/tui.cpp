@@ -104,6 +104,7 @@ void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents
         show_panel(popup);
         appendNode();
         maxEvents++;
+
         // Update the linked list and hide the popup panel
         updateEventList(ev);
         hide_panel(popup);
@@ -113,7 +114,6 @@ void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents
     case 'z':
         deleteNodeAtIndex(highlight);
         maxEvents--;
-        // Clear events window
 
         // Update event list
         updateEventList(ev);
@@ -133,10 +133,14 @@ void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents
     {
         highlight = 1;
     }
+    // If highlight goes over maxEvents
+    // set it to maxEvents
     if (highlight > maxEvents)
     {
         highlight = maxEvents;
     }
+    // If maxEvents is 0 highlight is 0
+    // and the collumns of the data file may be deleted
     if (maxEvents < 1)
     {
         maxEvents = 1;
@@ -198,6 +202,7 @@ void initTUI(WINDOW *wins[3], PANEL *panels[3])
 {
     // Turn off displaying of characters to screen
     noecho();
+
     // Turn off cursor
     curs_set(0);
 
@@ -250,6 +255,7 @@ void TUI(WINDOW *windows[3])
 
     while (true)
     {
+        // Clear "Events" window
         wclear(windows[1]);
         box(windows[1], 0, 0);
         mvwprintw(windows[1], 0, 1, " Events ");
