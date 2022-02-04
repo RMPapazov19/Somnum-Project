@@ -98,7 +98,6 @@ int updateEventList(EventNode *ev)
     std::ifstream testFile;
 
     std::string dateString;
-    std::stringstream dateSStream;
 
     // Variable to store number of events
     short count = 0;
@@ -127,24 +126,22 @@ int updateEventList(EventNode *ev)
     // Pass it columns where data will be stored
     in.read_header(io::ignore_extra_column, "Name", "Date", "Desc");
 
+    ev->date.tm_year = 0;
+    ev->date.tm_mon = 0;
+    ev->date.tm_mday = 0;
+
     // Read from file until data is present
     while (in.read_row(ev->name, dateString, ev->desc))
     {
         // Put dateString into dateSStream, parse the date and clear the stream
-        dateSStream << dateString;
-        dateSStream >> std::get_time(&ev->date, "%Y-%m-%d");
-        dateSStream.clear();
-
-        // Clear any date values
-        ev->date = {};
-
-        // Since tm_year counts from 1900 add 1900 to get accurate year
-        ev->date.tm_year += 1900;
+        std::stringstream dateSStream(dateString);
+        dateSStream >> std::get_time(&(ev->date), "\"%Y-%m-%d\"");
 
         // Add 1 to get accurate date
         // If input was not correct it sets tm_mon and tm_mday to 1
         ev->date.tm_mon++;
         ev->date.tm_mday++;
+        ev->date.tm_year += 1900;
 
         // Declare a new node and change it
         ev->next = new EventNode;
