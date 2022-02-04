@@ -112,12 +112,19 @@ void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents
 
     // Delete a selected event
     case 'z':
-        deleteNodeAtIndex(highlight);
-        maxEvents--;
+        // If maxEvents is 0 highlight is 0
+        // and the collumns of the data file may be deleted
+        if (maxEvents > 1)
+        {
+            deleteNodeAtIndex(highlight);
+            maxEvents--;
 
-        // Update event list
-        updateEventList(ev);
+            // Update event list
+            updateEventList(ev);
+        }
         break;
+
+    // Display help menu
     case 'h':
         // Show popup panel, display help menu
         // and hide panel again
@@ -127,23 +134,17 @@ void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents
         break;
     }
 
+    // If highlight goes over maxEvents
+    // set it to maxEvents
+    if (highlight > maxEvents && highlight != 1)
+    {
+        highlight = maxEvents;
+    }
     // If highlight is less than the minimum event
     // set it to minimum event
     if (highlight < 1)
     {
         highlight = 1;
-    }
-    // If highlight goes over maxEvents
-    // set it to maxEvents
-    if (highlight > maxEvents)
-    {
-        highlight = maxEvents;
-    }
-    // If maxEvents is 0 highlight is 0
-    // and the collumns of the data file may be deleted
-    if (maxEvents < 1)
-    {
-        maxEvents = 1;
     }
 }
 
@@ -159,6 +160,7 @@ void printEventList(WINDOW *wins[3], EventNode *ev, const short highlight)
 {
     // Short coresponding to current event
     short current = 1;
+
     while (ev->next != nullptr)
     {
         // If highlight == current then highlight text
@@ -245,7 +247,7 @@ void TUI(WINDOW *windows[3])
 
     // Declare and initialize highlight
     short highlight = 1;
-    short maxEvents = 0;
+    short maxEvents = 1;
 
     // Create popup window
     PANEL *popup = createPopupWindow();
