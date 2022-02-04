@@ -4,6 +4,8 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 #include "tui.h"
 
 /**
@@ -12,7 +14,7 @@
  */
 struct EventNode
 {
-    int day, month, year;
+    std::tm date;
     std::string name;
     std::string desc;
     struct EventNode *next = NULL;

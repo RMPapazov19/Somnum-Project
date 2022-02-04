@@ -106,7 +106,7 @@ void handleInput(short &highlight, EventNode *ev, PANEL *popup, WINDOW *win)
     // Delete a selected event
     case 'z':
         deleteNodeAtIndex(highlight);
-        
+
         // Clear events window
         wclear(win);
         box(win, 0, 0);
@@ -150,7 +150,11 @@ void printEventList(WINDOW *wins[3], EventNode *ev, const short highlight)
         {
             // Highlight text on wins[1]
             wattron(wins[1], A_STANDOUT);
-            mvwprintw(wins[1], current, 1, "%s - %i.%i.%i", ev->name.c_str(), ev->day, ev->month, ev->year);
+            mvwprintw(wins[1], current, 1, "%s - %i-%i-%i",
+                      ev->name.c_str(),
+                      ev->date.tm_year,
+                      ev->date.tm_mon,
+                      ev->date.tm_mday);
             wattroff(wins[1], A_STANDOUT);
 
             // Clear description windwow and print event selected event description
@@ -161,7 +165,11 @@ void printEventList(WINDOW *wins[3], EventNode *ev, const short highlight)
         }
         else
         {
-            mvwprintw(wins[1], current, 1, "%s - %i.%i.%i", ev->name.c_str(), ev->day, ev->month, ev->year);
+            mvwprintw(wins[1], current, 1, "%s - %i-%i-%i",
+                      ev->name.c_str(),
+                      ev->date.tm_year,
+                      ev->date.tm_mon,
+                      ev->date.tm_mday);
         }
         current++;
         ev = ev->next;
