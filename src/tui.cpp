@@ -66,14 +66,20 @@ void displayHelp()
 }
 
 /**
- * @brief Function that handels input
  * 
- * @param highlight Highlighted option in events panel
+ */
+
+/**
+ * @brief Function that handles input
+ * 
  * @param ev Event list
  * @param popup Popup window where all will be printed
+ * @param highlight Highlighted option in events panel
+ * @param maxEvents Max number of events
  */
-void handleInput(short &highlight, EventNode *ev, PANEL *popup, WINDOW *win)
+void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents)
 {
+
     switch (getch())
     {
     // Quit porgram
@@ -97,7 +103,7 @@ void handleInput(short &highlight, EventNode *ev, PANEL *popup, WINDOW *win)
         // Show the popup window and append a node
         show_panel(popup);
         appendNode();
-
+        maxEvents++;
         // Update the linked list and hide the popup panel
         updateEventList(ev);
         hide_panel(popup);
@@ -106,11 +112,8 @@ void handleInput(short &highlight, EventNode *ev, PANEL *popup, WINDOW *win)
     // Delete a selected event
     case 'z':
         deleteNodeAtIndex(highlight);
-
+        maxEvents--;
         // Clear events window
-        wclear(win);
-        box(win, 0, 0);
-        mvwprintw(win, 0, 1, " Events ");
 
         // Update event list
         updateEventList(ev);
@@ -123,11 +126,20 @@ void handleInput(short &highlight, EventNode *ev, PANEL *popup, WINDOW *win)
         hide_panel(popup);
         break;
     }
+
     // If highlight is less than the minimum event
     // set it to minimum event
     if (highlight < 1)
     {
         highlight = 1;
+    }
+    if (highlight > maxEvents)
+    {
+        highlight = maxEvents;
+    }
+    if (maxEvents < 1)
+    {
+        maxEvents = 1;
     }
 }
 
@@ -226,21 +238,27 @@ void TUI(WINDOW *windows[3])
     // Create head of linked list containing EventNode
     EventNode *head = new EventNode;
 
+    // Declare and initialize highlight
+    short highlight = 1;
+    short maxEvents = 0;
+
     // Create popup window
     PANEL *popup = createPopupWindow();
 
     // Initialize event list
-    updateEventList(head);
+    maxEvents = updateEventList(head);
 
-    // Declare and initialize highlight
-    short highlight = 1;
     while (true)
     {
+        wclear(windows[1]);
+        box(windows[1], 0, 0);
+        mvwprintw(windows[1], 0, 1, " Events ");
+
         // Print event list and update panels
         printEventList(windows, head, highlight);
         updatePanels();
 
         // Wait for input
-        handleInput(highlight, head, popup, windows[1]);
+        handleInput(head, popup, highlight, maxEvents);
     }
 }
