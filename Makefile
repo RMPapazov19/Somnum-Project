@@ -21,7 +21,7 @@ _DEPS=backend.h tui.h
 DEPS=$(patsubst %, $(IDIR)/%, $(_DEPS))
 
 # Put cpp files but change extension to .o
-_OBJ=main.o backend.o tui.o
+_OBJ=main.obj backend.obj tui.obj
 OBJ=$(patsubst %, $(ODIR)/%, $(_OBJ))
 
 # Libraries
@@ -34,7 +34,7 @@ endif
 LIBS+=-lpthread
 
 # Compile .cpp files to .o files
-$(ODIR)/%.o: src/%.cpp $(DEPS)
+$(ODIR)/%.obj: src/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS) $(ERRFLAGS)
 
 # Link .o files and make an executable in bin/ folder
