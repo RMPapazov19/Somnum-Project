@@ -137,7 +137,7 @@ int updateEventList(EventNode *ev)
     {
         // Put dateString into dateSStream, parse the date and clear the stream
         dateSStream << dateString;
-        dateSStream >> std::get_time(&(ev->date), "\"%Y-%m-%d\"");
+        dateSStream >> std::get_time(&(ev->date), "%Y-%m-%d");
 
         dateSStream.str("");
         dateSStream.clear();
