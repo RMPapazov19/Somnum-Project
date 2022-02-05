@@ -2,7 +2,7 @@
 
 /**
  * @brief Add event data to end of data file
- * 
+ *
  */
 void appendNode()
 {
@@ -51,7 +51,7 @@ void appendNode()
 
 /**
  * @brief Delete event data from file at given line
- * 
+ *
  * @param index Line of event file to be deleted
  */
 void deleteNodeAtIndex(const unsigned index)
@@ -89,7 +89,7 @@ void deleteNodeAtIndex(const unsigned index)
 
 /**
  * @brief Function to update linked list of events
- * 
+ *
  * @param ev head node of linked list
  */
 int updateEventList(EventNode *ev)
@@ -98,6 +98,7 @@ int updateEventList(EventNode *ev)
     std::ifstream testFile;
 
     std::string dateString;
+    std::stringstream dateSStream;
 
     // Variable to store number of events
     short count = 0;
@@ -126,6 +127,7 @@ int updateEventList(EventNode *ev)
     // Pass it columns where data will be stored
     in.read_header(io::ignore_extra_column, "Name", "Date", "Desc");
 
+    // Reset any previous data in head
     ev->date.tm_year = 0;
     ev->date.tm_mon = 0;
     ev->date.tm_mday = 0;
@@ -134,8 +136,11 @@ int updateEventList(EventNode *ev)
     while (in.read_row(ev->name, dateString, ev->desc))
     {
         // Put dateString into dateSStream, parse the date and clear the stream
-        std::stringstream dateSStream(dateString);
+        dateSStream << dateString;
         dateSStream >> std::get_time(&(ev->date), "\"%Y-%m-%d\"");
+
+        dateSStream.str("");
+        dateSStream.clear();
 
         // Add 1 to get accurate date
         // If input was not correct it sets tm_mon and tm_mday to 1
