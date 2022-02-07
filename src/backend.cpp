@@ -106,8 +106,9 @@ int updateEventList(EventNode *ev)
     // Try to open data file
     testFile.open("data.csv");
 
+    std::getline(testFile, dateString);
     // If data file can't be opened then it doesn't exist
-    if (!testFile)
+    if (!testFile || dateString != "Name,Date,Desc,")
     {
         // Create a data file
         data.open("data.csv", std::ios::out | std::ios::trunc);
@@ -119,6 +120,7 @@ int updateEventList(EventNode *ev)
         // Close the file
         data.close();
     }
+
     testFile.close();
 
     // Create an object of type CSVReader and give it the csv data file
@@ -131,6 +133,8 @@ int updateEventList(EventNode *ev)
     ev->date.tm_year = 0;
     ev->date.tm_mon = 0;
     ev->date.tm_mday = 0;
+
+    dateString = "";
 
     // Read from file until data is present
     while (in.read_row(ev->name, dateString, ev->desc))
@@ -145,7 +149,6 @@ int updateEventList(EventNode *ev)
         // Add 1 to get accurate date
         // If input was not correct it sets tm_mon and tm_mday to 1
         ev->date.tm_mon++;
-        ev->date.tm_mday++;
         ev->date.tm_year += 1900;
 
         // Declare a new node and change it
