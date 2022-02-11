@@ -1,58 +1,25 @@
 #include "backend.h"
 
 /**
- * @brief Add event data to end of data file
+ * @brief Append data to data file
  *
+ * @param evName C string that holds name of event
+ * @param evDate C string that holds date of event
  */
-void appendNode()
+void appendNodeToFile(char *evName, char *evDate)
 {
-    // Turn on printing user input to screen
-    echo();
-
-    // Get the popup window
-    WINDOW *win = panel_window(panel_below(NULL));
-
-    // Declare variables corresponding to collumns in .csv file
-    char name[80];
-    char date[10];
-    std::stringstream ssdate;
-
-    // Print operation in the corner of window
-    mvwprintw(win, 0, 1, " Add event ");
-
-    // Print all options
-    mvwprintw(win, 1, 1, "Name:");
-    mvwprintw(win, 2, 1, "Date:");
-    mvwprintw(win, 3, 1, "YYYY-MM-DD = ");
-
-    // Get input for all options
-    wmove(win, 1, 6);
-    mvwgetstr(win, 1, 6, name);
-    box(win, 0, 0);
-    mvwprintw(win, 0, 1, " Add event ");
-    wmove(win, 3, 14);
-    mvwgetstr(win, 3, 14, date);
-
-    // Clear popup window
-    wclear(win);
-    box(win, 0, 0);
-
     // Write event data to data file
     std::fstream data;
-    std::string dateString(date);
     data.open("data.csv", std::ios::app);
-    data << name << "," << dateString << ","
+    data << evName << "," << evDate << ","
          << "\"Edit me to add description\""
          << ",\n";
-
-    // Turn off printing user input to screen
-    noecho();
 }
 
 /**
- * @brief Delete event data from file at given line
+ * @brief Function that deletes given line of file
  *
- * @param index Line of event file to be deleted
+ * @param index Line to be deleted from file
  */
 void deleteNodeAtIndex(const unsigned index)
 {
@@ -88,28 +55,24 @@ void deleteNodeAtIndex(const unsigned index)
 }
 
 /**
- * @brief Function to update linked list of events
+ * @brief Function to initialize data file
  *
- * @param ev head node of linked list
  */
-int updateEventList(EventNode *ev)
+void initDataFile()
 {
-    std::fstream data;
     std::ifstream testFile;
-
-    std::string dateString;
-    std::stringstream dateSStream;
-
-    // Variable to store number of events
-    short count = 0;
+    std::string testString;
 
     // Try to open data file
     testFile.open("data.csv");
 
-    std::getline(testFile, dateString);
+    std::getline(testFile, testString);
+
     // If data file can't be opened then it doesn't exist
-    if (!testFile || dateString != "Name,Date,Desc,")
+    if (!testFile || testString != "Name,Date,Desc,")
     {
+        std::ofstream data;
+
         // Create a data file
         data.open("data.csv", std::ios::out | std::ios::trunc);
 
@@ -122,6 +85,21 @@ int updateEventList(EventNode *ev)
     }
 
     testFile.close();
+}
+
+/**
+ * @brief Function that updates event list from given file
+ *
+ * @param ev Event node
+ * @return int Returns number of events
+ */
+int updateEventList(EventNode *ev)
+{
+    std::string dateString;
+    std::stringstream dateSStream;
+
+    // Variable to store number of events
+    short count = 0;
 
     // Create an object of type CSVReader and give it the csv data file
     io::CSVReader<3> in("data.csv");
@@ -134,8 +112,6 @@ int updateEventList(EventNode *ev)
     ev->date.tm_mon = 0;
     ev->date.tm_mday = 0;
 
-    dateString = "";
-
     // Read from file until data is present
     while (in.read_row(ev->name, dateString, ev->desc))
     {
@@ -146,8 +122,7 @@ int updateEventList(EventNode *ev)
         dateSStream.str("");
         dateSStream.clear();
 
-        // Add 1 to get accurate date
-        // If input was not correct it sets tm_mon and tm_mday to 1
+        // Add 1 to tm_mon get accurate month since it returns [0..11]
         ev->date.tm_mon++;
         ev->date.tm_year += 1900;
 

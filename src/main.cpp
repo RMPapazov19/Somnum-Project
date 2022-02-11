@@ -6,15 +6,17 @@
 #include <panel.h>
 #endif
 
+#include "backend.h"
 #include "tui.h"
 
 int main()
 {
     WINDOW *windows[3];
     PANEL *panels[3];
-	initscr();
-	
+    initscr();
+
+    initDataFile();
     initTUI(windows, panels);
     TUI(windows);
-	endwin();
+    endwin();
 }

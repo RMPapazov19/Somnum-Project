@@ -1,8 +1,8 @@
 #include "tui.h"
 
 /**
- * @brief Function to update all panels
- * 
+ * @brief Function to update panels
+ *
  */
 void updatePanels()
 {
@@ -11,9 +11,9 @@ void updatePanels()
 }
 
 /**
- * @brief Create a Popup Window and hide it
- * 
- * @return PANEL* Returns the hidden popup panel
+ * @brief Create a popup window
+ *
+ * @return PANEL* Popoup window
  */
 PANEL *createPopupWindow()
 {
@@ -39,8 +39,40 @@ PANEL *createPopupWindow()
 }
 
 /**
- * @brief Display help table with all keybinds
- * 
+ * @brief Get user input needed to append event
+ *
+ * @param evName C string that holds name of event
+ * @param evDate C string that holds date of event
+ */
+void getInput(char *evName, char *evDate)
+{
+    // Get the popup window
+    WINDOW *win = panel_window(panel_below(NULL));
+
+    // Print operation in the corner of window
+    mvwprintw(win, 0, 1, " Add event ");
+
+    // Print all options
+    mvwprintw(win, 1, 1, "Name:");
+    mvwprintw(win, 2, 1, "Date:");
+    mvwprintw(win, 3, 1, "(YYYY-MM-DD) ");
+
+    // Get input for all options
+    wmove(win, 1, 6);
+    mvwgetstr(win, 1, 6, evName);
+    box(win, 0, 0);
+    mvwprintw(win, 0, 1, " Add event ");
+    wmove(win, 3, 14);
+    mvwgetstr(win, 2, 7, evDate);
+
+    // Clear popup window
+    wclear(win);
+    box(win, 0, 0);
+}
+
+/**
+ * @brief Display help menu
+ *
  */
 void displayHelp()
 {
@@ -66,16 +98,12 @@ void displayHelp()
 }
 
 /**
- * 
- */
-
-/**
  * @brief Function that handles input
- * 
- * @param ev Event list
- * @param popup Popup window where all will be printed
- * @param highlight Highlighted option in events panel
- * @param maxEvents Max number of events
+ *
+ * @param ev Event node
+ * @param popup Popup windwow
+ * @param highlight Index of selected event
+ * @param maxEvents Number of max events
  */
 void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents)
 {
@@ -84,6 +112,7 @@ void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents
     {
     // Quit porgram
     case 'q':
+        curs_set(1);
         echo();
         exit(0);
         break;
@@ -102,11 +131,19 @@ void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents
     case 'a':
         // Show the popup window and append a node
         show_panel(popup);
-        appendNode();
+        echo();
+
+        char name[80];
+        char date[20];
+
+        getInput(name, date);
+        appendNodeToFile(name, date);
         maxEvents++;
 
         // Update the linked list and hide the popup panel
         updateEventList(ev);
+
+        noecho();
         hide_panel(popup);
         break;
 
@@ -149,12 +186,11 @@ void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents
 }
 
 /**
- * \brief Function to print all event names and dates to
- *        the Events panel and selected event description
- * 
+ * @brief Print all events from event linked list
+ *
  * @param wins Array of all windows
- * @param ev Linked list of events to be printed on screen
- * @param highlight Option to be highlighted on screen
+ * @param ev Event node
+ * @param highlight Index of selected element
  */
 void printEventList(WINDOW *wins[3], EventNode *ev, const short highlight)
 {
@@ -195,10 +231,10 @@ void printEventList(WINDOW *wins[3], EventNode *ev, const short highlight)
 }
 
 /**
- * @brief Function that initializes the TextUI
- * 
+ * @brief Function to initialize the TUI
+ *
  * @param wins Array of all windows
- * @param panels Array of all windows
+ * @param panels Array of all panels
  */
 void initTUI(WINDOW *wins[3], PANEL *panels[3])
 {
@@ -236,9 +272,9 @@ void initTUI(WINDOW *wins[3], PANEL *panels[3])
 }
 
 /**
- * @brief Main TextUI function
- * 
- * @param windows Array of all windows
+ * @brief Main loop of TUI application
+ *
+ * @param windows Array of all windows on the screen
  */
 void TUI(WINDOW *windows[3])
 {

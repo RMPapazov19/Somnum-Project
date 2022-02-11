@@ -13,22 +13,16 @@
 #endif
 
 /**
- * @brief Function to update all panels
- * 
- */
-void updatePanels();
-
-/**
- * @brief Function that initializes the TextUI
- * 
+ * @brief Function to initialize the TUI
+ *
  * @param wins Array of all windows
- * @param panels Array of all windows
+ * @param panels Array of all panels
  */
 void initTUI(WINDOW *windows[3], PANEL *panels[3]);
 
 /**
- * @brief Main TextUI function
- * 
- * @param windows Array of all windows
+ * @brief Main loop of TUI application
+ *
+ * @param windows Array of all windows on the screen
  */
 void TUI(WINDOW *windows[3]);

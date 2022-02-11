@@ -7,11 +7,10 @@
 #include <sstream>
 #include <iomanip>
 #include <ctime>
-#include "tui.h"
 
 /**
- * @brief Node which contains all data about event and pointer to next node
- * 
+ * @brief Node of event linked list
+ *
  */
 struct EventNode
 {
@@ -22,22 +21,30 @@ struct EventNode
 };
 
 /**
- * @brief Function to update linked list of events
- * 
- * @param ev Head node of linked list
- * @return int Number of elements in list
+ * @brief Function that updates event list from given file
+ *
+ * @param ev Event node
+ * @return int Returns number of events
  */
 int updateEventList(EventNode *ev);
 
 /**
- * @brief Add event data to end of data file
- * 
+ * @brief Append data to data file
+ *
+ * @param evName C string that holds event name
+ * @param evDate C string that holds event date
  */
-void appendNode();
+void appendNodeToFile(char *name, char *date);
 
 /**
- * @brief Delete event data from file at given line
- * 
- * @param index Line of event file to be deleted
+ * @brief Function that deletes given line from file
+ *
+ * @param index Line to be deleted from file
  */
 void deleteNodeAtIndex(const unsigned index);
+
+/**
+ * @brief Function to initialize data file
+ *
+ */
+void initDataFile();
