@@ -43,6 +43,8 @@ void appendNodeToFile(char *name, char *date);
  */
 void deleteNodeAtIndex(const unsigned index);
 
+void sortList(EventNode **evRef);
+
 /**
  * @brief Function to initialize data file
  *

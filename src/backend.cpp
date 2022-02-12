@@ -87,6 +87,80 @@ void initDataFile()
     testFile.close();
 }
 
+EventNode *mergeList(EventNode *left, EventNode *right)
+{
+    EventNode *res = NULL;
+
+    if (left == NULL)
+    {
+        return res;
+    }
+    if (right == NULL)
+    {
+        return res;
+    }
+
+    if (left->date.tm_year <= right->date.tm_year)
+    {
+        res = left;
+        res->next = mergeList(left->next, right);
+    }
+    else
+    {
+        res = right;
+        res->next = mergeList(left, right->next);
+    }
+
+    return res;
+}
+
+void splitListInMiddle(EventNode *head, EventNode **startLeft, EventNode **startRight)
+{
+    EventNode *tail;
+    EventNode *beforeMiddle;
+
+    beforeMiddle = head;
+    tail = head->next;
+
+    while (tail != NULL)
+    {
+        tail = tail->next;
+        if (tail != NULL)
+        {
+            tail = tail->next;
+            beforeMiddle = beforeMiddle->next;
+        }
+    }
+
+    *startLeft = head;
+
+    // Instead of passing the node before the middle node
+    // pass the middle node
+    *startRight = beforeMiddle->next;
+
+    beforeMiddle->next = NULL;
+}
+
+void sortList(EventNode **evRef)
+{
+    EventNode *head = *evRef;
+
+    if (head == NULL || head->next == NULL)
+    {
+        return;
+    }
+
+    EventNode *left;
+    EventNode *right;
+
+    splitListInMiddle(head, &left, &right);
+
+    sortList(&left);
+    sortList(&right);
+
+    *evRef = mergeList(left, right);
+}
+
 /**
  * @brief Function that updates event list from given file
  *
