@@ -1,4 +1,4 @@
-![Logo](./images/Logo.png)
+![Logo](./images/logo.png)
 
 <details>
 	<summary>Table of contents</summary>
