@@ -1,11 +1,16 @@
 #include <utest.h>
-#include "backend.h"
+#include "../include/backend.h"
 UTEST_MAIN();
 
-// UTEST(Group, TestName)
-UTEST(Backend, Test1)
+UTEST(Backend, InitTestFile)
 {
-    EventNode *n = new EventNode;
-    n->date.tm_mday = 1;
-    ASSERT_EQ(n->date.tm_mday, 1);
+    // Arrange
+    std::ifstream dataFile;
+
+    // Act
+    initDataFile();
+    dataFile.open("data.csv");
+
+    // Assert
+    ASSERT_TRUE(dataFile);
 }

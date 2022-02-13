@@ -1,13 +1,19 @@
+
+# Include/ dir and obj/ dir
 IDIR=../include
+ODIR=.
+
+# Compiler options and flags
 CXX=g++
 
-ifeq ($(OS),Windows_NT)
-	CXXFLAGS=-I. -I$(IDIR) -I$(IDIR)/PDcurses
-	OUT_EXT=exe
-else
-	CXXFLAGS=-I$(IDIR)
-	OUT_EXT=out
-endif
+all: UnitTests
 
-UnitTests: UnitTests.cpp
-	$(CXX) -o $@.$(OUT_EXT) $^ $(CXXFLAGS)
+backend.o: ../src/backend.cpp
+	$(CXX) -c ../src/backend.cpp -I../include
+
+UnitTests.o: UnitTests.cpp
+	$(CXX) -c UnitTests.cpp -I. -I../include
+
+# Link .o files and make an executable in bin/ folder
+UnitTests: backend.o UnitTests.o utest.h
+	$(CXX) -o ./$@.$(OUT_EXT) $^
