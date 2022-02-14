@@ -6,6 +6,12 @@ ODIR=.
 # Compiler options and flags
 CXX=g++
 
+ifeq($(OS),Windows_NT)
+	OUT_EXT=exe
+else
+	OUT_EXT=out
+endif
+
 all: UnitTests
 
 backend.o: ../src/backend.cpp
