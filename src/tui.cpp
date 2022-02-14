@@ -149,10 +149,9 @@ void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents
 
     // Delete a selected event
     case 'z':
-        // If maxEvents is 0 highlight is 0
-        // and the collumns of the data file may be deleted
-        if (maxEvents > 1)
+        if(highlight >= 1)
         {
+            // and the collumns of the data file may be deleted
             deleteNodeAtIndex(highlight);
             maxEvents--;
 
@@ -173,15 +172,15 @@ void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents
 
     // If highlight goes over maxEvents
     // set it to maxEvents
-    if (highlight > maxEvents && highlight != 1)
+    if (highlight > maxEvents-1 && highlight != 0)
     {
-        highlight = maxEvents;
+        highlight = maxEvents-1;
     }
     // If highlight is less than the minimum event
     // set it to minimum event
-    if (highlight < 1)
+    if (highlight < 0)
     {
-        highlight = 1;
+        highlight = 0;
     }
 }
 
@@ -196,11 +195,11 @@ void printEventList(WINDOW *wins[3], EventNode *ev, const short highlight)
 {
     // Short coresponding to current event
     short current = 1;
-
-    while (ev->next != NULL)
+    ev = ev->next;
+    while (ev != NULL)
     {
         // If highlight == current then highlight text
-        if (highlight == current)
+        if (highlight+1 == current)
         {
             // Highlight text on wins[1]
             wattron(wins[1], A_STANDOUT);
@@ -280,17 +279,16 @@ void TUI(WINDOW *windows[3])
 {
     // Create head of linked list containing EventNode
     EventNode *head = new EventNode;
-
     // Declare and initialize highlight
-    short highlight = 1;
-    short maxEvents = 1;
+    short highlight = 0;
+    short maxEvents;
 
     // Create popup window
     PANEL *popup = createPopupWindow();
 
     // Initialize event list
     maxEvents = updateEventList(head);
-    // sortList(&head);
+    sortList(&head);
 
     while (true)
     {
@@ -299,9 +297,9 @@ void TUI(WINDOW *windows[3])
         box(windows[1], 0, 0);
         mvwprintw(windows[1], 0, 1, " Events ");
         // Print event list and update panels
+        sortList(&head);
         printEventList(windows, head, highlight);
         updatePanels();
-
         // Wait for input
         handleInput(head, popup, highlight, maxEvents);
     }

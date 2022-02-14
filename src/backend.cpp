@@ -25,7 +25,7 @@ void deleteNodeAtIndex(const unsigned index)
 {
     // Initialize a counter of lines
     unsigned counter = 0;
-
+    
     // Open data file in input mode
     std::fstream data;
     data.open("data.csv", std::ios::in);
@@ -36,7 +36,7 @@ void deleteNodeAtIndex(const unsigned index)
     // Get all data from file except line to be deleted
     while (std::getline(data, line))
     {
-        if (counter != index)
+        if (counter != index+1)
         {
             fileContents += line;
             fileContents += "\n";
@@ -87,41 +87,70 @@ void initDataFile()
     testFile.close();
 }
 
+/**
+ * @brief  Returns sorted list
+ * 
+ * @param left left side of the list
+ * @param right right side of the list
+ * @return EventNode* sorted list
+ */
 EventNode *mergeList(EventNode *left, EventNode *right)
 {
+    // Variable that will store result
     EventNode *res = NULL;
 
+    // Edge cases it no node is present at either left or right
     if (left == NULL)
     {
-        return res;
+        return right;
     }
     if (right == NULL)
     {
-        return res;
+        return left;
     }
 
     if (left->date.tm_year <= right->date.tm_year)
     {
+        // Assign left node to curent result node
         res = left;
+        
+        // Recursively call mergeList until no nodes are left
         res->next = mergeList(left->next, right);
     }
     else
     {
+        // Assign left node to curent result node
         res = right;
+        
+        // Recursively call mergeList until no nodes are left
         res->next = mergeList(left, right->next);
     }
 
     return res;
 }
 
+/**
+ * @brief Function that splits list in half
+ * 
+ * @param head Head of linked list
+ * @param startLeft Pointer to left side of list
+ * @param startRight Pointer to right side of list
+ */
 void splitListInMiddle(EventNode *head, EventNode **startLeft, EventNode **startRight)
 {
+    // Tail of right side
     EventNode *tail;
+
+    // Node before head of right side
+    // Tail of left side
     EventNode *beforeMiddle;
 
     beforeMiddle = head;
     tail = head->next;
 
+    // For every 2 steps tail takes
+    // beforeMiddle takes one
+    // which splits list in two
     while (tail != NULL)
     {
         tail = tail->next;
@@ -132,32 +161,45 @@ void splitListInMiddle(EventNode *head, EventNode **startLeft, EventNode **start
         }
     }
 
+    // Left side is always head parameter
     *startLeft = head;
 
     // Instead of passing the node before the middle node
     // pass the middle node
     *startRight = beforeMiddle->next;
 
+    // Break the list to evade infinite loops
     beforeMiddle->next = NULL;
 }
 
+/**
+ * @brief Function that sorts linked list using merge sort
+ * 
+ * @param evRef Pointer to event list
+ */
 void sortList(EventNode **evRef)
 {
     EventNode *head = *evRef;
 
+    // Edge cases if head is NULL or node after head is NULL
+    // Then the list is sorted
     if (head == NULL || head->next == NULL)
     {
         return;
     }
 
+    // Nodes that will point to left and right branch of split linked list
     EventNode *left;
     EventNode *right;
 
+    // Split list in middle
     splitListInMiddle(head, &left, &right);
 
+    // Recursively split list until only one node is on each side
     sortList(&left);
     sortList(&right);
 
+    // Merge list while sorting it
     *evRef = mergeList(left, right);
 }
 
@@ -204,6 +246,7 @@ int updateEventList(EventNode *ev)
         ev->next = new EventNode;
         ev = ev->next;
 
+        // Iterate count to get max element
         count++;
     }
     return count;
