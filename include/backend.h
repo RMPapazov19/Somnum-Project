@@ -43,6 +43,11 @@ void appendNodeToFile(char *name, char *date);
  */
 void deleteNodeAtIndex(const unsigned index);
 
+/**
+ * @brief Function that sorts linked list using merge sort
+ * 
+ * @param evRef Pointer to event list
+ */
 void sortList(EventNode **evRef);
 
 /**

@@ -1,0 +1,4 @@
+<map id="displayHelp" name="displayHelp">
+<area shape="rect" id="node1" title="Display help menu." alt="" coords="5,5,95,32"/>
+<area shape="rect" id="node2" href="$tui_8cpp.html#a155e7417471baedb23e42ba697525ece" title="Function to update panels." alt="" coords="143,5,244,32"/>
+</map>

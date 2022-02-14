@@ -1,0 +1,9 @@
+<map id="handleInput" name="handleInput">
+<area shape="rect" id="node1" title="Function that handles input." alt="" coords="5,107,93,133"/>
+<area shape="rect" id="node2" href="$backend_8cpp.html#a9f2a636322122e75fbf951d1db9929aa" title="Append data to data file." alt="" coords="142,5,271,32"/>
+<area shape="rect" id="node3" href="$backend_8cpp.html#a089a7c86b88e610dc2c45a4ee055149d" title="Function that deletes given line of file." alt="" coords="141,56,272,83"/>
+<area shape="rect" id="node4" href="$tui_8cpp.html#a1451d6a0f33f9d0a02a4b055e5839e6e" title="Display help menu." alt="" coords="162,107,251,133"/>
+<area shape="rect" id="node6" href="$tui_8cpp.html#aa30254048107f1a87d9385031150217c" title="Get user input needed to append event." alt="" coords="173,157,241,184"/>
+<area shape="rect" id="node7" href="$backend_8cpp.html#a76dbcb2e92b0d18ed20776dcef1e8e47" title="Function that updates event list from given file." alt="" coords="149,208,264,235"/>
+<area shape="rect" id="node5" href="$tui_8cpp.html#a155e7417471baedb23e42ba697525ece" title="Function to update panels." alt="" coords="320,107,421,133"/>
+</map>

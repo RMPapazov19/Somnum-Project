@@ -1,3 +1,7 @@
+# Table of keybinds
+
+This is the table of all possible keybinds in our project
+
 | Key          | Action         |
 | ------------ | -------------- |
 | <kbd>h</kbd> | Open help menu |

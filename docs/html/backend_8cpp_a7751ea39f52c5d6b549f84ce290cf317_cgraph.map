@@ -1,0 +1,5 @@
+<map id="sortList" name="sortList">
+<area shape="rect" id="node1" title="Function that sorts linked list using merge sort." alt="" coords="5,55,71,81"/>
+<area shape="rect" id="node2" href="$backend_8cpp.html#ab01c90ee0c59af4fd3c90eb1bb18895c" title="Returns sorted list." alt="" coords="137,29,215,56"/>
+<area shape="rect" id="node3" href="$backend_8cpp.html#ab7cf63e4374d1dc9d0f77c7a1ca1d5d7" title="Function that splits list in half." alt="" coords="119,80,233,107"/>
+</map>

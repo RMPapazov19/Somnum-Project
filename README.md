@@ -13,10 +13,13 @@
 			<a href = "#getting-started">Getting started</a>
 			<ul>
 				<!-- <li>
-					<a href = "#released-project">Released project</a> -->
-				</li>
+					<a href = "#released-project">Released project</a>
+				</li> -->
 				<li>
 					<a href = "#compiling-from-source">Compiling from source</a>
+				</li>
+				<li>
+					<a href = "#running-unit-tests">Running unit tests</a>
 				</li>
 			</ul>
 		</li>
@@ -47,7 +50,7 @@ We used two main technologies:
 
 ## Getting started
 
-This section contains information about how to get the project up and running on your system
+This section contains information about how to get the project up and running on your system.
 
 #### Compiling from source
 
@@ -69,7 +72,7 @@ This section contains information about how to get the project up and running on
 1. Clone the project
 
 ```sh
-git clone https://github.com/RMPapazov19/Somnum-Project
+git clone --recursive https://github.com/RMPapazov19/Somnum-Project
 ```
 
 2. Choose the right makefile
@@ -91,6 +94,10 @@ git clone https://github.com/RMPapazov19/Somnum-Project
    ```sh
    ./bin/main.out
    ```
+##### Running unit tests
+
+Please refer to [RunTests.md](./tests/RunTests.md) for more information
+
 
 ## License
 
@@ -107,6 +114,7 @@ Presian Stefanov
 
 Helpful resources I found while working on the project:
 
+- [Doxygen awesome css](https://github.com/jothepro/doxygen-awesome-css)
 - [Choose an Open Source License](https://choosealicense.com/)
 - [Colsby Computer Science's makefile guide](https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/)
 - [TLDP's Ncurses HOWTO](https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/)

@@ -1,0 +1,18 @@
+<map id="main" name="main">
+<area shape="rect" id="node1" title=" " alt="" coords="5,183,56,209"/>
+<area shape="rect" id="node2" href="$backend_8cpp.html#abdaa60a5637d893a587be0e77e92c09c" title="Function to initialize data file." alt="" coords="104,132,191,159"/>
+<area shape="rect" id="node3" href="$tui_8cpp.html#a31c053f4a1a0947d03c32de309442e84" title="Function to initialize the TUI." alt="" coords="118,183,177,209"/>
+<area shape="rect" id="node4" href="$tui_8cpp.html#a8add5ffd003181d6996ee07df567d89c" title="Main loop of TUI application." alt="" coords="127,233,168,260"/>
+<area shape="rect" id="node5" href="$tui_8cpp.html#a31b1d1fa75e02e67b564d23a1f1bc745" title="Create a popup window." alt="" coords="239,107,380,133"/>
+<area shape="rect" id="node6" href="$tui_8cpp.html#a8e5d4b44c73547a2b9ed98ed82aeb73c" title="Function that handles input." alt="" coords="265,157,353,184"/>
+<area shape="rect" id="node10" href="$tui_8cpp.html#a155e7417471baedb23e42ba697525ece" title="Function to update panels." alt="" coords="607,183,708,209"/>
+<area shape="rect" id="node12" href="$backend_8cpp.html#a76dbcb2e92b0d18ed20776dcef1e8e47" title="Function that updates event list from given file." alt="" coords="436,208,551,235"/>
+<area shape="rect" id="node13" href="$tui_8cpp.html#a9a32e861ad9964ac6bdc1d1e8d335a20" title="Print all events from event linked list." alt="" coords="259,309,359,336"/>
+<area shape="rect" id="node14" href="$backend_8cpp.html#a7751ea39f52c5d6b549f84ce290cf317" title="Function that sorts linked list using merge sort." alt="" coords="277,384,342,411"/>
+<area shape="rect" id="node7" href="$backend_8cpp.html#a9f2a636322122e75fbf951d1db9929aa" title="Append data to data file." alt="" coords="429,5,558,32"/>
+<area shape="rect" id="node8" href="$backend_8cpp.html#a089a7c86b88e610dc2c45a4ee055149d" title="Function that deletes given line of file." alt="" coords="428,56,559,83"/>
+<area shape="rect" id="node9" href="$tui_8cpp.html#a1451d6a0f33f9d0a02a4b055e5839e6e" title="Display help menu." alt="" coords="449,107,538,133"/>
+<area shape="rect" id="node11" href="$tui_8cpp.html#aa30254048107f1a87d9385031150217c" title="Get user input needed to append event." alt="" coords="459,157,527,184"/>
+<area shape="rect" id="node15" href="$backend_8cpp.html#ab01c90ee0c59af4fd3c90eb1bb18895c" title="Returns sorted list." alt="" coords="454,359,533,385"/>
+<area shape="rect" id="node16" href="$backend_8cpp.html#ab7cf63e4374d1dc9d0f77c7a1ca1d5d7" title="Function that splits list in half." alt="" coords="436,409,551,436"/>
+</map>
