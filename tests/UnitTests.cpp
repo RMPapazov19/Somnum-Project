@@ -2,36 +2,8 @@
 #include "../include/backend.h"
 UTEST_MAIN();
 
-UTEST(Backend,appendNodeToFile)
-{
-    //Arange
-    std::ifstream dataFile1;
 
-    //Act
-    appendNodeToFile();
-    dataFile1.open("data.csv",std::ios::app);
-
-    //Assert
-    ASSERT_TRUE(dataFile1);
-
-}
-
-
-UTEST(Backend,deleteNodeAtIndex)
-{
-    //Arange
-    std::ifstream dataFile2;
-
-    //Act
-    deleteNodeAtIndex();
-    dataFile2.open("data.csv", std::ios::out | std::ios::trunc);
-    
-    //Assert
-    ASSERT_TRUE(dataFile2);
-}
-
-
-UTEST(Backend, InitTestFile)
+UTEST(Backend,InitTestFile)
 {
     // Arrange
     std::ifstream dataFile;
@@ -43,60 +15,34 @@ UTEST(Backend, InitTestFile)
     // Assert
     ASSERT_TRUE(dataFile);
 }
-
-
-UTEST(Backend,mergeList)
+UTEST(Backend,appendNodeToFile)
 {
     //Arrange
-    std::ifstream dataFile3;
+     char *evName="ev1";
+     char *evDate="2022-02-14";
+     std::fstream dataFile;
+     std::string testString;
 
     //Act
-    mergeList();
-    dataFile3.open(std::ios::res);
+    appendNodeToFile(evName,evDate);
+    dataFile.open("data.csv",std::ios::in);
+    std::getline(dataFile,testString);
+    std::getline(dataFile,testString);
 
     //Assert
-    ASSERT_TRUE(dataFile3);
-}
-
-
-UTEST(Backend,splitListInMiddle)
-{
-    //Arrange
-   std::ifstream dataFile4;
-
-   //Act
-   splitListInMiddle();
-   dataFile4.open(startRight);
-
-   //Assert
-   ASSERT_TRUE(dataFile4);
-
-}
-
-
-UTEST(Backend,sortList)
-{
-    //Arange
-    std::ifstream dataFile5;
-
-    //Act
-    sortList();
-    dataFile5.open(evRef);
-
-    //Assert
-    ASSERT_TRUE(dataFile5);
+    ASSERT_STREQ("ev1,2022-02-14,\"Edit me to add description\",",testString.c_str());
 }
 
 
 UTEST(Backend,updateEventList)
 {
-    //Arange
-    std::ifstream dataFile6;
+    //Arrange
+    EventNode *ev;
+    std::fstream dataFile;
 
     //Act
-    updateEventList();
-    dataFile6.open(ev);
-
+updateEventList(ev);
+dataFile.open("data.csv", std::ios::in);
     //Assert
-    ASSERT_TRUE(dataFile6);
+ASSERT_TRUE(ev);
 }
