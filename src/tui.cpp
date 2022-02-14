@@ -195,49 +195,27 @@ void handleInput(EventNode *ev, PANEL *popup, short &highlight, short &maxEvents
 void printEventList(WINDOW *wins[3], EventNode *ev, const short highlight)
 {
     // Short coresponding to current event
-    short current = 0;
+    short current = 1;
 
-    // while (ev->next != NULL)
-    // {
-    //     // If highlight == current then highlight text
-    //     if (highlight == current)
-    //     {
-    //         // Highlight text on wins[1]
-    //         wattron(wins[1], A_STANDOUT);
-    //         mvwprintw(wins[1], current, 1, "%s - %i-%i-%i",
-    //                   ev->name.c_str(),
-    //                   ev->date.tm_year,
-    //                   ev->date.tm_mon,
-    //                   ev->date.tm_mday);
-    //         wattroff(wins[1], A_STANDOUT);
-
-    //         // Clear description windwow and print event selected event description
-    //         wclear(wins[2]);
-    //         box(wins[2], 0, 0);
-    //         mvwprintw(wins[2], 0, 1, " Description ");
-    //         mvwprintw(wins[2], 1, 1, "%s", ev->desc.c_str());
-    //     }
-    //     else
-    //     {
-    //         mvwprintw(wins[1], current, 1, "%s - %i-%i-%i",
-    //                   ev->name.c_str(),
-    //                   ev->date.tm_year,
-    //                   ev->date.tm_mon,
-    //                   ev->date.tm_mday);
-    //     }
-    //     current++;
-    //     ev = ev->next;
-    // }
-
-    while (ev != NULL)
+    while (ev->next != NULL)
     {
-        if (highlight == ++current)
+        // If highlight == current then highlight text
+        if (highlight == current)
         {
+            // Highlight text on wins[1]
+            wattron(wins[1], A_STANDOUT);
             mvwprintw(wins[1], current, 1, "%s - %i-%i-%i",
                       ev->name.c_str(),
                       ev->date.tm_year,
                       ev->date.tm_mon,
                       ev->date.tm_mday);
+            wattroff(wins[1], A_STANDOUT);
+
+            // Clear description windwow and print event selected event description
+            wclear(wins[2]);
+            box(wins[2], 0, 0);
+            mvwprintw(wins[2], 0, 1, " Description ");
+            mvwprintw(wins[2], 1, 1, "%s", ev->desc.c_str());
         }
         else
         {
@@ -247,6 +225,7 @@ void printEventList(WINDOW *wins[3], EventNode *ev, const short highlight)
                       ev->date.tm_mon,
                       ev->date.tm_mday);
         }
+        current++;
         ev = ev->next;
     }
 }
