@@ -105,10 +105,18 @@ This project is licensed under the MIT license. See [License](LICENSE) for more 
 
 ## Contact us
 
-Presian Stefanov
+Presian Stefanov - Lead developer
 
 - Github - [@PSStefanov19](https://github.com/PSStefanov19)
 - Instagram - [@presian.cpp](https://www.instagram.com/presian.cpp/)
+
+Rosen Papazov - QA Tester
+
+- Github - [@RMPapazov19](https://github.com/RMPapazov19)
+
+Zhivko Nanev 
+
+- Github - [@ZDNanev19](https://github.com/ZDNanev19)
 
 ## Acknowledgements
 
