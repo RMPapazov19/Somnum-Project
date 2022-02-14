@@ -6,7 +6,7 @@ ODIR=.
 # Compiler options and flags
 CXX=g++
 
-ifeq($(OS),Windows_NT)
+ifeq ($(OS),Windows_NT)
 	OUT_EXT=exe
 else
 	OUT_EXT=out
