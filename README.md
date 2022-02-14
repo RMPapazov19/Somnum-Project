@@ -94,7 +94,7 @@ git clone https://github.com/RMPapazov19/Somnum-Project
 
 ## License
 
-This project is licensed under the MIT license. See [License](License) for more information.
+This project is licensed under the MIT license. See [License](LICENSE) for more information.
 
 ## Contact us
 
