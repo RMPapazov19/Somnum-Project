@@ -196,6 +196,20 @@ void printEventList(WINDOW *wins[3], EventNode *ev, const short highlight)
     // Short coresponding to current event
     short current = 1;
     ev = ev->next;
+
+    // Max characters of timeline
+    int maxTimelineChars = 1;  
+
+    // Printing timeline
+    for (int i = 2; i < getmaxx(wins[0]) - 3; i++)
+    {
+        maxTimelineChars += 1;
+        mvwprintw(wins[0], 1, i, "-");
+    }
+    // Add the ending arrow
+    mvwprintw(wins[0], 1, getmaxx(wins[0]) - 3, ">");
+
+    // Printing events and putting marks on the timeline
     while (ev != NULL)
     {
         // If highlight == current then highlight text
@@ -224,6 +238,11 @@ void printEventList(WINDOW *wins[3], EventNode *ev, const short highlight)
                       ev->date.tm_mon,
                       ev->date.tm_mday);
         }
+
+        // Calculate the position of the mark and display it
+        double timelinePosX = (ev->date.tm_year * maxTimelineChars) / 2022;
+        mvwaddch(wins[0], 1, timelinePosX, '|');
+
         current++;
         ev = ev->next;
     }
