@@ -41,7 +41,7 @@ This is the event manager made by team Somnum for the sprint "Linked list". It c
 
 ## Technologies used
 
-We used two main technologies:
+We used four main technologies:
 
 - C++
 - ncurses / [PDcurses](https://github.com/wmcbrine/PDCurses)
@@ -78,11 +78,11 @@ git clone --recursive https://github.com/RMPapazov19/Somnum-Project
 2. Choose the right makefile
    - If you are using Windows
    ```sh
-   mingw32-make -f Windows
+   mingw32-make
    ```
    - If you are using Linux
    ```sh
-   make -f Linux
+   make
    ```
 1. Run the project
    - Windows
