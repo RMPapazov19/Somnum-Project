@@ -41,7 +41,7 @@ This is the event manager made by team Somnum for the sprint "Linked list". It c
 
 ## Technologies used
 
-We used two main technologies:
+We used four main technologies:
 
 - C++
 - ncurses / [PDcurses](https://github.com/wmcbrine/PDCurses)
